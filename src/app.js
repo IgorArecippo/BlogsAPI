@@ -20,6 +20,7 @@ app.post('/user', valiEmail, valiName, valiPassword, userController.create);
 app.get('/user', authToken, userController.getAll);
 app.get('/user/:id', authToken, userController.getOne);
 app.post('/categories', authToken, categoryController.create);
+app.get('/categories', authToken, categoryController.getAll);
 
 // ...
 
