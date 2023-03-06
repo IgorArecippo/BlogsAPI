@@ -1,5 +1,5 @@
 const loginService = require('../services/loginService');
-const { generateToken } = require('../middlewares/jtw');
+const { generateToken } = require('../middlewares/jwt');
 
 const loginGet = async (req, res) => {
   const token = await loginService.findOne(req.body);

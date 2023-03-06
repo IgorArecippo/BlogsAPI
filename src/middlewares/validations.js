@@ -9,14 +9,14 @@ const valiLogin = (req, res, next) => {
 };
 
 const valiName = (req, res, next) => {
-  const { name } = req.body;
-  if (!name) {
+  const { displayName } = req.body;
+  if (!displayName) {
     return res.status(400).json(
-      { message: 'the field "name" is required' },
+      { message: 'the field "displayName" is required' },
     );
   }
 
-  if (name.length < 8) {
+  if (displayName.length < 8) {
     return res.status(400).json(
       { message: '"displayName" length must be at least 8 characters long' },
     );

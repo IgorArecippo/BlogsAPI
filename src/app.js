@@ -1,7 +1,7 @@
 const express = require('express');
 const loginController = require('./controllers/loginController');
-const { valiLogin } = require('./middlewares/validations');
-
+const { valiEmail, valiLogin, valiName, valiPassword } = require('./middlewares/validations');
+const userController = require('./controllers/userController');
 // ...
 
 const app = express();
@@ -14,6 +14,7 @@ app.get('/', (_request, response) => {
 app.use(express.json());
 
 app.post('/login', valiLogin, loginController.loginGet);
+app.post('/user', valiEmail, valiName, valiPassword, userController.create);
 
 // ...
 
