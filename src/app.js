@@ -3,6 +3,7 @@ const loginController = require('./controllers/loginController');
 const { valiEmail, valiLogin, valiName, valiPassword } = require('./middlewares/validations');
 const userController = require('./controllers/userController');
 const categoryController = require('./controllers/categoryController');
+const postController = require('./controllers/postController');
 const { authToken } = require('./middlewares/jwt');
 // ...
 
@@ -21,6 +22,7 @@ app.get('/user', authToken, userController.getAll);
 app.get('/user/:id', authToken, userController.getOne);
 app.post('/categories', authToken, categoryController.create);
 app.get('/categories', authToken, categoryController.getAll);
+app.get('/post', authToken, postController.getAll);
 
 // ...
 
