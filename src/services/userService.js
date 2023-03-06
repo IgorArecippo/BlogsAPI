@@ -17,7 +17,19 @@ const getAll = async () => {
   return users;
 };
 
+const getOne = async (req) => {
+  const findUser = await User.findOne({
+    where: { id: req.params.id },
+    attributes: { exclude: 'password' },
+  });
+  if (!findUser) {
+    return { status: 404, message: 'User does not exist' };
+  }
+  return findUser;
+};
+
 module.exports = {
   create,
   getAll,
+  getOne,
 };
