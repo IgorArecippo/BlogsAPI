@@ -7,23 +7,21 @@ const configJWT = {
   algorithm: 'HS256',
 };
 
-const generateToken = ({ email, password }) =>
-  jwt.sign({ email, password }, JWT_SECRET, configJWT);
+const generateToken = ({ email, password }) => jwt.sign({ email, password }, JWT_SECRET, configJWT);
 
-const authToken = async (token) => {
+const authToken = (req, res, next) => {
+  const token = req.headers.authorization;
   if (!token) {
-    const error = new Error('missing auth token');
-    error.status = 401;
-    throw error;
+    return res.status(401).json({ message: 'Token not found' });
   }
 
   try {
-    const JWTdata = await jwt.verify(token, JWT_SECRET);
-    return JWTdata;
+    const JWTdata = jwt.verify(token, JWT_SECRET);
+    req.user = JWTdata;
+    return next();
   } catch (err) {
-    const error = new Error('jwt malformed');
-    error.status(401);
-    return error;
+    console.log(err);
+    return res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
 
